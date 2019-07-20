@@ -14,7 +14,7 @@ class Node:
         return "Char node with char: %s and freq: %s" % (self.char, self.frequency)
 
 
-def tree_traversal(node, pre_string='', cache={}):
+def tree_traversal(node, pre_string='', cache=None):
     """
     Creates a Tree traversal using the Tree created previously.
     It works by creating a dictionary, and using that reference throughout the function.
@@ -32,7 +32,8 @@ def tree_traversal(node, pre_string='', cache={}):
     """
     if node is None:
         return None
-
+    if cache is None:
+        cache = dict()
     if node.char is not None:
         cache[pre_string] = node.char
 
@@ -92,6 +93,7 @@ def huffman_decoding(data, tree):
     c_index = 0
     while True:
         c_range = 1
+
         while True:
             try:
                 word = data[c_index:c_index + c_range]
@@ -108,17 +110,37 @@ def huffman_decoding(data, tree):
 if __name__ == "__main__":
     codes = {}
 
-    a_great_sentence = "this is an example of a huffman tree"
+    # a_great_sentence = "this is an example of a huffman tree"
+    #
+    # print("The size of the data is: {}\n".format(sys.getsizeof(a_great_sentence)))
+    # print("The content of the data is: {}\n".format(a_great_sentence))
+    #
+    # encoded_data, tree = huffman_encoding(a_great_sentence)
+    #
+    # print("The size of the encoded data is: {}\n".format(sys.getsizeof(int(encoded_data, base=2))))
+    # print("The content of the encoded data is: {}\n".format(encoded_data))
+    #
+    # decoded_data = huffman_decoding(encoded_data, tree)
+    #
+    # print("The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
+    # print("The content of the encoded data is: {}\n".format(decoded_data))
 
-    print("The size of the data is: {}\n".format(sys.getsizeof(a_great_sentence)))
-    print("The content of the data is: {}\n".format(a_great_sentence))
+    # Test 1:
+    test_1_string = "There was a problem doing a push".lower()
+    test_1_encoded, test_1_tree = huffman_encoding(test_1_string)
+    test_1_decoded = huffman_decoding(test_1_encoded, test_1_tree)
+    assert test_1_string == test_1_decoded
 
-    encoded_data, tree = huffman_encoding(a_great_sentence)
+    # Test 2:
+    test_2_string = "the quick brown fox jumps over the lazy dog".lower()
+    test_2_encoded, test_2_tree = huffman_encoding(test_2_string)
+    test_2_decoded = huffman_decoding(test_2_encoded, test_2_tree)
+    assert test_2_string == test_2_decoded
 
-    print("The size of the encoded data is: {}\n".format(sys.getsizeof(int(encoded_data, base=2))))
-    print("The content of the encoded data is: {}\n".format(encoded_data))
+    # Test 3:
+    test_3_string = "it's time to eat".lower()
+    test_3_encoded, test_3_tree = huffman_encoding(test_3_string)
+    test_3_decoded = huffman_decoding(test_3_encoded, test_3_tree)
+    assert test_3_string == test_3_decoded
 
-    decoded_data = huffman_decoding(encoded_data, tree)
-
-    print("The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
-    print("The content of the encoded data is: {}\n".format(decoded_data))
+    print("All test passed....!!")
