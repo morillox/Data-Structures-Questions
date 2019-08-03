@@ -1,5 +1,7 @@
 import datetime
 import hashlib
+import unittest
+
 from collections import deque
 
 
@@ -23,7 +25,7 @@ class Blockchain:
         self.tail = block
         self.size += 1
 
-    def get_last_block(self):
+    def get_latest_block(self):
         return self.tail
 
 
@@ -59,7 +61,7 @@ class Block(object):
         return sha.hexdigest()
 
 
-class EncryptionTest(TestCase):
+class EncryptionTest(unittest.TestCase):
     def test_encrypts_one(self):
         chain = Blockchain()
 
@@ -75,7 +77,7 @@ class EncryptionTest(TestCase):
         chain = Blockchain()
 
         chain.add_block("hello there")
-        block1 : Block = chain.get_latest_block()
+        block1: Block = chain.get_latest_block()
 
         chain.add_block("general Kenoby")
         block2: Block = chain.get_latest_block()
@@ -100,6 +102,7 @@ class EncryptionTest(TestCase):
 
         self.assertEqual(block.hash, test_data_hashing)
         self.assertEqual(block.previous_hash, 0)
+
 
 if __name__ == '__main__':
     unittest.main()
