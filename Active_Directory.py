@@ -60,10 +60,10 @@ print(is_user_in_group(None, parent))
 assert is_user_in_group(None, parent) == False, "None user should return false"
 
 print(is_user_in_group(sub_child_user, parent))
-assert is_user_in_group(sub_child_user, parent), "User not found in subgroup!"
+assert is_user_in_group(sub_child_user, parent) == True, "User found in subgroup!"
 
 print(is_user_in_group(sub_child_user, sub_child))
-assert is_user_in_group(sub_child_user, sub_child), "User not found in same group!"
+assert is_user_in_group(sub_child_user, sub_child) == True, "User found in same group!"
 
 print(is_user_in_group(parent_user, sub_child))
 assert is_user_in_group(parent_user, sub_child) == False, "User is only in super group!"

@@ -51,7 +51,13 @@ def huffman_encoding(data: str):
     :param data: String to be encoded using the Huffman encoding algorithm.
     :return
     """
-    data = data.lower()
+    if not data:
+        return '0', None
+
+    try:
+        data = data.lower()
+    except ValueError:
+        print("Invalid data, cannot encode this data!!")
 
     from collections import Counter
 
@@ -89,6 +95,9 @@ def huffman_encoding(data: str):
 
 
 def huffman_decoding(data, tree):
+    if not tree and data == "0":
+        return ""
+
     sentence = ""
     c_index = 0
     while True:
@@ -142,5 +151,15 @@ if __name__ == "__main__":
     test_3_encoded, test_3_tree = huffman_encoding(test_3_string)
     test_3_decoded = huffman_decoding(test_3_encoded, test_3_tree)
     assert test_3_string == test_3_decoded
+
+    # Test 4:
+    test_4_string = ""
+    test_4_encoded, test_4_tree = huffman_encoding(test_4_string)
+    test_4_decoded = huffman_decoding(test_4_encoded, test_4_tree)
+    assert test_4_string == test_4_decoded
+
+    tes_5_string = 12
+    test_5_encoded, tes_5_tree = huffman_encoding(tes_5_string)
+
 
     print("All test passed....!!")
