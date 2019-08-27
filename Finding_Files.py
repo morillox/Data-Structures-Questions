@@ -25,3 +25,4 @@ def find_files(suffix, path):
 print(find_files(".c", 'testdir'))
 print(find_files(".c", '.'))
 print(find_files('.c', 'testdir/subdir3'))
+print(find_files('aaa','testdir'))
